@@ -37,8 +37,8 @@ class BasicUsageTest(TestCase):
         self.conf["a"]["b"] = 3
         self.assertEquals(self.conf.root.a.b, 3)
 
-    def test__setting_existing_paths_through_proxy(self):
-        self.conf.root.a.b = 3
+    def test__setting_existing_paths_through_assign_path(self):
+        self.conf.assign_path('a.b', 3)
         self.assertEquals(self.conf.root.a.b, 3)
 
     def test__setting_nonexistent_paths(self):
@@ -169,7 +169,6 @@ class BackupTest(TestCase):
         with self.assertRaises(exceptions.NoBackup):
             self.conf.restore()
 
-
 class SerializationTest(TestCase):
 
     def setUp(self):
@@ -188,3 +187,9 @@ class SerializationTest(TestCase):
         self.assertIsNot(result, self.dict)
         self.assertEquals(result, self.dict)
         self.assertIsNot(result['a'], self.dict['a'])
+        self.assertEquals(result['a']['b']['c'], 8)
+
+    def test__serialization_with_assignment(self):
+        self.conf.assign_path("a.b.c", 9)
+        result = self.conf.serialize_to_dict()
+        self.assertEquals(result['a']['b']['c'], 9)
