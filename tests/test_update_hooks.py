@@ -5,7 +5,7 @@ def test_update_hook(nested_config, checkpoint):
         checkpoint()
 
     assert not checkpoint.called
-    
+
     nested_config.root.a.b.value += 1
 
     assert checkpoint.called

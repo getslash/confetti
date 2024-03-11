@@ -89,7 +89,8 @@ class Config(object):
         """
         if not self.is_leaf():
             raise exceptions.CannotSetValue(
-                "Cannot set value of a non-leaf config object")
+                "Cannot set value of a non-leaf config object"
+            )
         self._value = value
         self.notify_update()
 
@@ -151,8 +152,7 @@ class Config(object):
         for p in path_components:
             child = returned._value.get(p, NOTHING)
             if child is NOTHING:
-                raise exceptions.InvalidPath(
-                    "Invalid path: {0!r}".format(path))
+                raise exceptions.InvalidPath("Invalid path: {0!r}".format(path))
             if not isinstance(child, Config):
                 child = returned._value[p] = Config(child, parent=returned)
             returned = child
@@ -170,8 +170,7 @@ class Config(object):
         only if the value assigned is a config object.
         """
         if item not in self._value:
-            raise exceptions.CannotSetValue(
-                "Cannot set key {0!r}".format(item))
+            raise exceptions.CannotSetValue("Cannot set key {0!r}".format(item))
         old_value = self._value[item]
         if isinstance(old_value, Config):
             old_metadata = old_value.metadata
@@ -208,18 +207,29 @@ class Config(object):
 
     def _verify_config_paths(self, conf):
         if self.is_leaf():
-            if (isinstance(conf, Config) and not conf.is_leaf()) or isinstance(conf, dict):
+            if (isinstance(conf, Config) and not conf.is_leaf()) or isinstance(
+                conf, dict
+            ):
                 raise exceptions.CannotSetValue(
-                    "Setting {0} will cause a value to disappear from {1}".format(conf, self))
+                    "Setting {0} will cause a value to disappear from {1}".format(
+                        conf, self
+                    )
+                )
         else:
             if conf.is_leaf():
                 raise exceptions.CannotSetValue(
-                    "Setting {0} will cause paths to disappear from {1}".format(conf, self))
+                    "Setting {0} will cause paths to disappear from {1}".format(
+                        conf, self
+                    )
+                )
             else:
                 for k in self._value.keys():
                     if k not in conf._value:
                         raise exceptions.CannotSetValue(
-                            "Setting {0} will cause paths to disappear from {1}".format(conf, self))
+                            "Setting {0} will cause paths to disappear from {1}".format(
+                                conf, self
+                            )
+                        )
                     self.get_config(k)._verify_config_paths(conf._value[k])
 
     def _extend_from_dict(self, d):
@@ -278,7 +288,7 @@ class Config(object):
         else:
             namespace = dict(namespace)
         exec(s, namespace)
-        return cls(namespace['CONFIG'])
+        return cls(namespace["CONFIG"])
 
     def backup(self):
         """
@@ -327,7 +337,7 @@ class Config(object):
 
     def set_parent(self, parent):
         if self._parent is not None:
-            raise RuntimeError('Config object already has a parent')
+            raise RuntimeError("Config object already has a parent")
         self._parent = parent
 
     def assign_path(self, path, value, deduce_type=False, default_type=None):

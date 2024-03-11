@@ -15,8 +15,7 @@ class Ref(object):
         while target.startswith("."):
             target = target[1:]
             if config is None:
-                raise CannotResolveError(
-                    "Cannot resolve {0}".format(self._target))
+                raise CannotResolveError("Cannot resolve {0}".format(self._target))
             config = config.get_parent()
         try:
             returned = config.get_path(target)
