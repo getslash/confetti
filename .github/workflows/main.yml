@@ -30,4 +30,6 @@ jobs:
         run: |
           uv venv
           uv pip install ".[testing]"
+          uv run ruff format . --check
+          uv run ruff check .
           .venv/bin/pytest -x tests --cov=confetti --cov-report=html
