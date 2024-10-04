@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling>=0.25.1", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "confetti"
+description = "Generic configuration mechanism"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = { text = "BSD 3-Clause License" }
+
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = ["sentinels>=0.0.5"]
+dynamic = ["version"]
+
+authors = [{ name = "Rotem Yaari", email = "vmalloc@gmail.com" }]
+
+[project.urls]
+"Homepage" = "https://github.com/getslash/confetti"
+
+[project.optional-dependencies]
+testing = ["pytest", "pytest-cov", "ruff"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]

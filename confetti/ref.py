@@ -2,7 +2,6 @@ from .exceptions import CannotResolveError
 
 
 class Ref(object):
-
     def __init__(self, target, filter=None):
         super(Ref, self).__init__()
         self._target = target

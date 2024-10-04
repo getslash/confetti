@@ -1,1 +1,3 @@
-__version__ = "2.5.3"
+from importlib.metadata import distribution
+
+__version__ = distribution("confetti").version

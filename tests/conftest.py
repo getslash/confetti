@@ -32,7 +32,6 @@ _timestamp = itertools.count(1000000)
 
 
 class Checkpoint(object):
-
     called = False
     args = kwargs = timestamp = None
 
