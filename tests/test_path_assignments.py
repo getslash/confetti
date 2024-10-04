@@ -1,4 +1,4 @@
-from .test_utils import TestCase
+from unittest import TestCase
 from confetti import Config
 from confetti import exceptions
 

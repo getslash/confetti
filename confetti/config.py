@@ -5,7 +5,6 @@ from contextlib import contextmanager
 from sentinels import NOTHING
 
 from . import exceptions
-from .python3_compat import iteritems, string_types, itervalues
 from .ref import Ref
 from .utils import coerce_leaf_value
 
@@ -45,7 +44,7 @@ class Config(object):
         while stack:
             root = stack.pop()
             if isinstance(root, dict):
-                stack.extend(itervalues(root))
+                stack.extend(iter(root.values()))
             elif isinstance(root, Config):
                 stack.extend(root.itervalues())
 
@@ -64,7 +63,7 @@ class Config(object):
 
     def _fix_dictionary_value(self):
         to_replace = []
-        for k, v in iteritems(self._value):
+        for k, v in self._value.items():
             if isinstance(v, dict):
                 to_replace.append((k, Config(v, parent=self)))
         for k, v in to_replace:
@@ -199,10 +198,10 @@ class Config(object):
 
     def _extend_from_conf(self, conf):
         conf = dict((key, conf.get_config(key)) for key in conf.keys())
-        for key, value in iteritems(conf):
+        for key, value in conf.items():
             if key in self._value:
                 self.get_config(key)._verify_config_paths(value)
-        for key, value in iteritems(conf):
+        for key, value in conf.items():
             self._value[key] = value
 
     def _verify_config_paths(self, conf):
@@ -233,7 +232,7 @@ class Config(object):
                     self.get_config(k)._verify_config_paths(conf._value[k])
 
     def _extend_from_dict(self, d):
-        for key, value in iteritems(d):
+        for key, value in d.items():
             if isinstance(value, dict):
                 if key not in self._value:
                     self._value[key] = {}
@@ -243,7 +242,7 @@ class Config(object):
 
     def update(self, conf):
         conf = dict((key, conf.get_config(key)) for key in conf.keys())
-        for key, value in iteritems(conf):
+        for key, value in conf.items():
             if not value.is_leaf():
                 if key not in self._value:
                     self._value[key] = {}
@@ -258,7 +257,7 @@ class Config(object):
         return self._value.keys()
 
     def itervalues(self):
-        return itervalues(self._value)
+        return iter(self._value.values())
 
     @classmethod
     def from_filename(cls, filename, namespace=None):
@@ -350,7 +349,7 @@ class Config(object):
         3
         """
         config = self.get_config(path)
-        if deduce_type and isinstance(value, string_types):
+        if deduce_type and isinstance(value, str):
             leaf = self.get_path(path)
             value = coerce_leaf_value(path, value, leaf, default_type)
 
@@ -426,7 +425,7 @@ def _set_state(config, state):
     assert isinstance(config, Config)
     for key in set(config.keys()) - set(state):
         config.pop(key)
-    for key, value in iteritems(state):
+    for key, value in state.items():
         if isinstance(value, dict):
             _set_state(config[key], value)
         else:

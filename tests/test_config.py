@@ -1,7 +1,7 @@
 import os
 import tempfile
 
-from .test_utils import TestCase
+from unittest import TestCase
 from confetti import Config
 from confetti import get_config_object_from_proxy
 from confetti import exceptions

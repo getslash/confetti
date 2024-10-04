@@ -19,7 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
-dependencies = ["sentinels>=0.0.5", "six"]
+dependencies = ["sentinels>=0.0.5"]
 dynamic = ["version"]
 
 authors = [{ name = "Rotem Yaari", email = "vmalloc@gmail.com" }]
