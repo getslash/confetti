@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    # manually triggered
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+    env:
+      UV_PYTHON: ${{ matrix.python-version }}
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@main
+      - name: Install the default version of uv
+        id: setup-uv
+        uses: astral-sh/setup-uv@v3
+      - name: Print the installed version
+        run: echo "Installed uv version is ${{ steps.setup-uv.outputs.uv-version }}"
+      - name: Install Python ${{ matrix.python-version }}
+        run: uv python install  ${{ matrix.python-version }}
+
+      - name: Tests
+        run: |
+          uv venv
+          uv pip install ".[testing]"
+          .venv/bin/pytest -x tests --cov=confetti --cov-report=html
