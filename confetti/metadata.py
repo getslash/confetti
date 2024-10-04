@@ -2,7 +2,6 @@ from .config import Config
 
 
 class Metadata(object):
-
     def __init__(self, **kwargs):
         super(Metadata, self).__init__()
         self.metadata = kwargs

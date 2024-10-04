@@ -4,7 +4,6 @@ from confetti import exceptions
 
 
 class PathAssignmentTest(TestCase):
-
     def setUp(self):
         super(PathAssignmentTest, self).setUp()
         self.conf = Config(dict(a=dict(b=dict(c=3)), d=4, e=None))

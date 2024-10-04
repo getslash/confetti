@@ -4,7 +4,6 @@ import doctest
 
 
 class DocumentationTest(TestCase):
-
     def test_doctests(self):
         for p, _, filenames in os.walk(
             os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "doc"))

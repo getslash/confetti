@@ -375,7 +375,6 @@ class Config(object):
 
 
 class ConfigProxy(object):
-
     def __init__(self, conf):
         super(ConfigProxy, self).__init__()
         self._conf = conf

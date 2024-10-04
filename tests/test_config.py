@@ -10,7 +10,6 @@ from sentinels import NOTHING
 
 
 class BasicUsageTest(TestCase):
-
     def setUp(self):
         super(BasicUsageTest, self).setUp()
         self.conf = Config(dict(a=dict(b=2)))
@@ -84,7 +83,6 @@ class BasicUsageTest(TestCase):
 
 
 class ExtendingTest(TestCase):
-
     def setUp(self):
         super(ExtendingTest, self).setUp()
         self.conf = Config({"a": 1})
@@ -151,7 +149,6 @@ class ExtendingTest(TestCase):
 
 
 class HelperMethodsTest(TestCase):
-
     def setUp(self):
         super(HelperMethodsTest, self).setUp()
         self.config = Config(
@@ -175,7 +172,6 @@ class HelperMethodsTest(TestCase):
 
 
 class CopyingTest(TestCase):
-
     def test_copying_nested_dictionaries(self):
         raw_conf = {"a": {"b": 2}}
         conf1 = Config(raw_conf)
@@ -185,7 +181,6 @@ class CopyingTest(TestCase):
 
 
 class LinkedConfigurationTest(TestCase):
-
     def setUp(self):
         super(LinkedConfigurationTest, self).setUp()
         self.conf1 = Config(dict(a=1))
@@ -217,7 +212,6 @@ class LinkedConfigurationTest(TestCase):
 
 
 class BackupTest(TestCase):
-
     def setUp(self):
         super(BackupTest, self).setUp()
         self.conf = Config(dict(a=1, b=2, c=[]))
@@ -250,7 +244,6 @@ class BackupTest(TestCase):
 
 
 class SerializationTest(TestCase):
-
     def setUp(self):
         super(SerializationTest, self).setUp()
         self.dict = dict(a=dict(b=dict(c=8)))
