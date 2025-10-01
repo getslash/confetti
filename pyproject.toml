@@ -29,6 +29,7 @@ authors = [{ name = "Rotem Yaari", email = "vmalloc@gmail.com" }]
 
 [project.optional-dependencies]
 testing = ["pytest", "pytest-cov", "ruff"]
+doc = ["Sphinx", "alabaster", "releases"]
 
 [tool.hatch.version]
 source = "vcs"
