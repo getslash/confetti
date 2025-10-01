@@ -109,7 +109,7 @@ However, it is not allowed to extend using a Config object if it will remove exi
  Traceback (most recent call last):
     ...
  CannotSetValue: ...
- 
+
 In the above example, in order to add the path c.root.extended_value.child2, without re-specifying extended_value.child1, use the :func:`.Config.update` method:
 
  >>> c.update(Config({'extended_value':{'child2':2}}))
@@ -117,7 +117,7 @@ In the above example, in order to add the path c.root.extended_value.child2, wit
  1
  >>> c.root.extended_value.child2
  2
- 
+
 
 Advanced Uses
 ~~~~~~~~~~~~~
@@ -132,7 +132,7 @@ Config objects can assign to paths using the :func:`.Config.assign_path` method:
  2
 
 Which is a synonym for:
- 
+
  >>> c.get_config("a.b.c").set_value(2)
 
 In some cases you want to process config overrides from various sources that are not completely type safe, e.g. command-line or environment variables. Such variables would look like ``'some.value=2'``. Confetti provides a utility for easily assigning such expressions, optionally deducing the leaf type::
@@ -141,7 +141,7 @@ In some cases you want to process config overrides from various sources that are
  >>> c.root.a.b.c
  234
 
-The default is no type deduction, which results in string values always:: 
+The default is no type deduction, which results in string values always::
 
  >>> c.assign_path_expression("a.b.c=230")
  >>> c.root.a.b.c
